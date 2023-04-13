@@ -1,5 +1,6 @@
 class XiaAppData {
-    constructor(accessCookieName = 'xia_access_token', refreshSignalName = 'xia_refresh_signal') {
+    constructor(ssoUrl = '/sso/provider', accessCookieName = 'xia_access_token', refreshSignalName = 'xia_refresh_signal') {
+        this.ssoUrl = ssoUrl;
         this.accessCookieName = accessCookieName;
         this.refreshSignalName = refreshSignalName;
         this.access_cookie = Cookies.get(accessCookieName);
@@ -39,7 +40,7 @@ class XiaAppData {
                 return true;
             }
         } else if (!this.access_cookie && xiaHeader.getValue(xiaHeader.root_header, 'login', false)) {
-            location.href = "/sso/provider";
+            location.href = this.ssoUrl;
             return true
         }
         return false;
